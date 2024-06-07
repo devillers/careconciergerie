@@ -338,7 +338,7 @@ export default function UploadImage() {
 
       <div className="flex items-center justify-center w-full mt-4">
         <label
-          className="flex flex-col items-center w-full px-2 py-2 bg-white text-blue-500 rounded-lg border border-blue-500 cursor-pointer hover:bg-blue-500 hover:text-white transition duration-300 ease-in-out"
+          className=" w-full px-4 py-2 bg-pink-600 text-white rounded-lg shadow-md hover:bg-pink-700 text-center text-[12px] transition duration-300 ease-in-out"
           onClick={handleFileSelectClick}
         >
           <span className="text-[12px] leading-normal">

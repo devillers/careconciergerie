@@ -181,7 +181,7 @@ export default function UploadImage() {
       (name === 'postCode' || name === 'streetNumber') &&
       !/^\d*$/.test(value)
     ) {
-      setFormError(`la valeur doit être un chiffre.`);
+      setFormError(`la valeur doit être un chiffre`);
     } else {
       setFormError('');
       setUserData({
@@ -325,8 +325,9 @@ export default function UploadImage() {
           type="submit"
           className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-75 pl-4 text-[12px]"
         >
-          sauvegarder
+          sauvegarder votre annonce google
         </button>
+        {/* <h4>selectionner 10 photos max</h4> */}
       </form>
 
       {successMessage && (

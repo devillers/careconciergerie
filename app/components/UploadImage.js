@@ -18,6 +18,7 @@ export default function UploadImage() {
     streetNumber: '',
     postCode: '',
     town: '',
+    housingName: '',
     name: '',
     surname: '',
   });
@@ -204,6 +205,7 @@ export default function UploadImage() {
         streetNumber: '',
         postCode: '',
         town: '',
+        housingName: '',
         name: '',
         surname: '',
       });
@@ -216,7 +218,7 @@ export default function UploadImage() {
   return (
     <div className="mx-auto max-w-xl p-6 flex flex-col items-center space-y-4 bg-white shadow-md rounded-lg">
       {error && (
-        <div className="w-full bg-red-100 text-red-800 p-4 rounded-lg  text-[12px]">
+        <div className="w-full bg-red-100 text-red-800 p-4 rounded-lg">
           {error}
         </div>
       )}
@@ -232,6 +234,15 @@ export default function UploadImage() {
         onSubmit={handleFormSubmit}
         className="w-full flex flex-col space-y-4 text-[12px]"
       >
+        <input
+          type="text"
+          name="housingName"
+          placeholder="nom du logement"
+          value={userData.housingName}
+          onChange={handleInputChange}
+          className="w-full px-4 py-2 border rounded-lg"
+        />
+
         <input
           type="text"
           name="streetNumber"
@@ -265,6 +276,7 @@ export default function UploadImage() {
           onChange={handleInputChange}
           className="w-full px-4 py-2 border rounded-lg"
         />
+
         <input
           type="text"
           name="name"
@@ -282,7 +294,7 @@ export default function UploadImage() {
           className="w-full px-4 py-2 border rounded-lg"
         />
         {formError && (
-          <div className="w-full bg-red-100 text-red-800 p-2 rounded-lg pl-4">
+          <div className="w-full bg-red-100 text-red-800 p-2 rounded-lg text-[12px] pl-4">
             {formError}
           </div>
         )}

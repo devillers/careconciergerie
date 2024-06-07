@@ -23,6 +23,7 @@ export default function UploadImage() {
     name: '',
     surname: '',
     siteWeb: '',
+    mobile: '+33766797364',
   });
   const [formError, setFormError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
@@ -216,6 +217,7 @@ export default function UploadImage() {
         surname: '',
         country: '',
         siteWeb: '',
+        mobile: '+33766797364',
       });
     } catch (err) {
       console.error('Error saving user details:', err);
@@ -297,6 +299,15 @@ export default function UploadImage() {
           placeholder="annonce care concierge"
           value={userData.siteWeb}
           onChange={handleInputChange}
+          className="w-full px-4 py-2 border rounded-lg"
+        />
+
+        <input
+          type="text"
+          name="mobile"
+          placeholder="+33766797364"
+          value="+33766797364"
+          readOnly
           className="w-full px-4 py-2 border rounded-lg"
         />
 

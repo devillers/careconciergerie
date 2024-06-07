@@ -302,7 +302,7 @@ export default function UploadImage() {
           type="submit"
           className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-75"
         >
-          sauvegarder
+          sauvegarder le logement
         </button>
       </form>
 

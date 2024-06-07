@@ -1,5 +1,6 @@
 // components/UploadImage.js
 'use client';
+import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 import { ref, uploadBytes, getDownloadURL, listAll } from 'firebase/storage';
 import { collection, addDoc } from 'firebase/firestore';
@@ -227,6 +228,9 @@ export default function UploadImage() {
 
   return (
     <div className="mx-auto max-w-xl p-6 flex flex-col items-center space-y-4 bg-white shadow-md rounded-lg">
+      <div className="flex items-center select-none mx-auto w-auto ">
+        <Image src="/logo.png" alt="Logo" width={150} height={80} />
+      </div>
       {error && (
         <div className="w-full bg-red-100 text-red-800 p-4 rounded-lg">
           {error}

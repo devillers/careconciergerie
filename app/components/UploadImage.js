@@ -300,7 +300,7 @@ export default function UploadImage() {
         <input
           type="text"
           name="siteWeb"
-          placeholder="annonce care concierge"
+          placeholder="annonce web care concierge"
           value={userData.siteWeb}
           onChange={handleInputChange}
           className="w-full px-4 py-2 border rounded-lg"

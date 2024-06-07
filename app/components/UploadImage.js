@@ -22,6 +22,7 @@ export default function UploadImage() {
     housingName: '',
     name: '',
     surname: '',
+    siteWeb: '',
   });
   const [formError, setFormError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
@@ -214,6 +215,7 @@ export default function UploadImage() {
         name: '',
         surname: '',
         country: '',
+        siteWeb: '',
       });
     } catch (err) {
       console.error('Error saving user details:', err);
@@ -289,6 +291,14 @@ export default function UploadImage() {
           onChange={handleInputChange}
           className="w-full px-4 py-2 border rounded-lg"
         />
+        <input
+          type="text"
+          name="siteWeb"
+          placeholder="annonce care concierge"
+          value={userData.siteWeb}
+          onChange={handleInputChange}
+          className="w-full px-4 py-2 border rounded-lg"
+        />
 
         <input
           type="text"
@@ -307,20 +317,20 @@ export default function UploadImage() {
           className="w-full px-4 py-2 border rounded-lg"
         />
         {formError && (
-          <div className="w-full bg-red-100 text-red-800 p-2 rounded-lg">
+          <div className="w-full bg-red-100 text-red-800 p-2 rounded-lg text-[12px] pl-4">
             {formError}
           </div>
         )}
         <button
           type="submit"
-          className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-75"
+          className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-75 pl-4 text-[12px]"
         >
           sauvegarder
         </button>
       </form>
 
       {successMessage && (
-        <div className="w-full bg-green-100 text-green-800 p-2 rounded-lg">
+        <div className="w-full bg-green-100 text-green-800 p-2 rounded-lg text-[12px] pl-4">
           {successMessage}
         </div>
       )}

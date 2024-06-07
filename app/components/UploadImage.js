@@ -380,7 +380,7 @@ export default function UploadImage() {
         className="px-4 py-2 bg-blue-600 text-white text-[12px] rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
         onClick={handleUpload}
       >
-        enregistrer
+        valider vos photos
       </button>
       {urls.length > 0 && (
         <div className="mt-4 w-full grid grid-cols-1 gap-4">

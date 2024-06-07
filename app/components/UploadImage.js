@@ -17,6 +17,7 @@ export default function UploadImage() {
     streetName: '',
     streetNumber: '',
     postCode: '',
+    town: '',
     name: '',
     surname: '',
   });
@@ -177,7 +178,7 @@ export default function UploadImage() {
       (name === 'postCode' || name === 'streetNumber') &&
       !/^\d*$/.test(value)
     ) {
-      setFormError(`${name} doit être un chiffre`);
+      setFormError(`la valeur doit être un chiffre.`);
     } else {
       setFormError('');
       setUserData({
@@ -196,12 +197,13 @@ export default function UploadImage() {
       console.log('Submitting form with data: ', userData); // Debugging log
       const docRef = await addDoc(collection(db, 'user_details'), userData);
       console.log('Document written with ID: ', docRef.id); // Debugging log
-      setSuccessMessage('User details saved successfully.');
+      setSuccessMessage('données sauvegardées');
       // Clear form fields after successful submission
       setUserData({
         streetName: '',
         streetNumber: '',
         postCode: '',
+        town: '',
         name: '',
         surname: '',
       });
@@ -212,32 +214,24 @@ export default function UploadImage() {
   };
 
   return (
-    <div className="mx-auto max-w-xl p-6 flex flex-col items-center space-y-4 bg-white shadow-md rounded-md text-[12px]">
+    <div className="mx-auto max-w-xl p-6 flex flex-col items-center space-y-4 bg-white shadow-md rounded-lg">
       {error && (
-        <div className="w-full bg-red-100 text-red-800 p-4 rounded-lg">
+        <div className="w-full bg-red-100 text-red-800 p-4 rounded-lg  text-[12px]">
           {error}
         </div>
       )}
 
       {existingImagesCount > 0 && (
-        <div className="w-full bg-gray-200 rounded-lg p-4">
-          <h3 className="text-[13px] font-semibold mb-2">FIchiers existants</h3>
-          <p>{existingImagesCount} image(s) saved.</p>
+        <div className="w-full bg-gray-200 rounded-lg p-4 text-[12px]">
+          <h3 className="text-sm font-semibold mb-2">fichiers existants:</h3>
+          <p>{existingImagesCount} image(s) sauvegardées.</p>
         </div>
       )}
 
       <form
         onSubmit={handleFormSubmit}
-        className="w-full flex flex-col space-y-4"
+        className="w-full flex flex-col space-y-4 text-[12px]"
       >
-        <input
-          type="text"
-          name="streetName"
-          placeholder="rue "
-          value={userData.streetName}
-          onChange={handleInputChange}
-          className="w-full px-4 py-2 border rounded-lg"
-        />
         <input
           type="text"
           name="streetNumber"
@@ -248,9 +242,26 @@ export default function UploadImage() {
         />
         <input
           type="text"
+          name="streetName"
+          placeholder="nom de rue"
+          value={userData.streetName}
+          onChange={handleInputChange}
+          className="w-full px-4 py-2 border rounded-lg"
+        />
+
+        <input
+          type="text"
           name="postCode"
           placeholder="code postal"
           value={userData.postCode}
+          onChange={handleInputChange}
+          className="w-full px-4 py-2 border rounded-lg"
+        />
+        <input
+          type="text"
+          name="town"
+          placeholder="ville"
+          value={userData.town}
           onChange={handleInputChange}
           className="w-full px-4 py-2 border rounded-lg"
         />
@@ -271,7 +282,7 @@ export default function UploadImage() {
           className="w-full px-4 py-2 border rounded-lg"
         />
         {formError && (
-          <div className="w-full bg-red-100 text-red-800 p-2 rounded-lg">
+          <div className="w-full bg-red-100 text-red-800 p-2 rounded-lg pl-4">
             {formError}
           </div>
         )}
@@ -279,12 +290,12 @@ export default function UploadImage() {
           type="submit"
           className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-75"
         >
-          Save Details
+          sauvegarder
         </button>
       </form>
 
       {successMessage && (
-        <div className="w-full bg-green-100 text-green-800 p-2 rounded-lg">
+        <div className="w-full bg-green-100 text-green-800 p-2 rounded-lg text-[12px] pl-4">
           {successMessage}
         </div>
       )}
@@ -294,8 +305,8 @@ export default function UploadImage() {
           className="flex flex-col items-center w-full px-2 py-2 bg-white text-blue-500 rounded-lg border border-blue-500 cursor-pointer hover:bg-blue-500 hover:text-white transition duration-300 ease-in-out"
           onClick={handleFileSelectClick}
         >
-          <span className="mt-2 text-[13px] leading-normal">
-            selectionner un fichier{' '}
+          <span className="text-[12px] leading-normal">
+            selectionner vos photos
           </span>
           <input
             type="file"
@@ -309,10 +320,12 @@ export default function UploadImage() {
 
       {fileNames.length > 0 && (
         <div className="w-full bg-gray-200 rounded-lg p-4">
-          <h3 className="text-lg font-semibold mb-2">Selected files:</h3>
-          <ul className="list-disc list-inside">
+          <h3 className="text-sm font-semibold mb-2">fichier selectionné:</h3>
+          <ul className=" list-inside">
             {fileNames.map((name, index) => (
-              <li key={index}>{name}</li>
+              <li className=" text-sm text-pink-500" key={index}>
+                {name}
+              </li>
             ))}
           </ul>
         </div>
@@ -328,10 +341,10 @@ export default function UploadImage() {
       )}
 
       <button
-        className="px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
+        className="px-4 py-2 bg-blue-600 text-white text-[12px] rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
         onClick={handleUpload}
       >
-        Upload
+        enregistrer
       </button>
       {urls.length > 0 && (
         <div className="mt-4 w-full grid grid-cols-1 gap-4">

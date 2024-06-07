@@ -18,6 +18,7 @@ export default function UploadImage() {
     streetNumber: '',
     postCode: '',
     town: '',
+    country: '',
     housingName: '',
     name: '',
     surname: '',
@@ -191,6 +192,10 @@ export default function UploadImage() {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    if (Object.values(userData).some((field) => field === '')) {
+      setFormError('Tous les champs doivent être remplis.');
+      return;
+    }
     if (formError) {
       return;
     }
@@ -208,6 +213,7 @@ export default function UploadImage() {
         housingName: '',
         name: '',
         surname: '',
+        country: '',
       });
     } catch (err) {
       console.error('Error saving user details:', err);
@@ -242,7 +248,6 @@ export default function UploadImage() {
           onChange={handleInputChange}
           className="w-full px-4 py-2 border rounded-lg"
         />
-
         <input
           type="text"
           name="streetNumber"
@@ -276,6 +281,14 @@ export default function UploadImage() {
           onChange={handleInputChange}
           className="w-full px-4 py-2 border rounded-lg"
         />
+        <input
+          type="text"
+          name="country"
+          placeholder="pays"
+          value={userData.country}
+          onChange={handleInputChange}
+          className="w-full px-4 py-2 border rounded-lg"
+        />
 
         <input
           type="text"
@@ -294,7 +307,7 @@ export default function UploadImage() {
           className="w-full px-4 py-2 border rounded-lg"
         />
         {formError && (
-          <div className="w-full bg-red-100 text-red-800 p-2 rounded-lg text-[12px] pl-4">
+          <div className="w-full bg-red-100 text-red-800 p-2 rounded-lg">
             {formError}
           </div>
         )}
@@ -302,12 +315,12 @@ export default function UploadImage() {
           type="submit"
           className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-75"
         >
-          sauvegarder le logement
+          sauvegarder
         </button>
       </form>
 
       {successMessage && (
-        <div className="w-full bg-green-100 text-green-800 p-2 rounded-lg text-[12px] pl-4">
+        <div className="w-full bg-green-100 text-green-800 p-2 rounded-lg">
           {successMessage}
         </div>
       )}

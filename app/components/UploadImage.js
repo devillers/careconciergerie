@@ -1,6 +1,5 @@
 // components/UploadImage.js
 'use client';
-import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 import { ref, uploadBytes, getDownloadURL, listAll } from 'firebase/storage';
 import { collection, addDoc } from 'firebase/firestore';
@@ -19,12 +18,9 @@ export default function UploadImage() {
     streetNumber: '',
     postCode: '',
     town: '',
-    country: '',
     housingName: '',
     name: '',
     surname: '',
-    siteWeb: '',
-    mobile: '+33766797364',
   });
   const [formError, setFormError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
@@ -183,7 +179,7 @@ export default function UploadImage() {
       (name === 'postCode' || name === 'streetNumber') &&
       !/^\d*$/.test(value)
     ) {
-      setFormError(`la valeur doit être un chiffre`);
+      setFormError(`la valeur doit être un chiffre.`);
     } else {
       setFormError('');
       setUserData({
@@ -216,9 +212,6 @@ export default function UploadImage() {
         housingName: '',
         name: '',
         surname: '',
-        country: '',
-        siteWeb: '',
-        mobile: '+33766797364',
       });
     } catch (err) {
       console.error('Error saving user details:', err);
@@ -228,9 +221,6 @@ export default function UploadImage() {
 
   return (
     <div className="mx-auto max-w-xl p-6 flex flex-col items-center space-y-4 bg-white shadow-md rounded-lg">
-      <div className="flex items-center select-none mx-auto w-auto ">
-        <Image src="/logo.png" alt="Logo" width={150} height={80} />
-      </div>
       {error && (
         <div className="w-full bg-red-100 text-red-800 p-4 rounded-lg">
           {error}
@@ -250,9 +240,9 @@ export default function UploadImage() {
       >
         <input
           type="text"
-          name="housingName"
-          placeholder="nom du logement"
-          value={userData.housingName}
+          name="streetName"
+          placeholder="nom de rue"
+          value={userData.streetName}
           onChange={handleInputChange}
           className="w-full px-4 py-2 border rounded-lg"
         />
@@ -264,15 +254,6 @@ export default function UploadImage() {
           onChange={handleInputChange}
           className="w-full px-4 py-2 border rounded-lg"
         />
-        <input
-          type="text"
-          name="streetName"
-          placeholder="nom de rue"
-          value={userData.streetName}
-          onChange={handleInputChange}
-          className="w-full px-4 py-2 border rounded-lg"
-        />
-
         <input
           type="text"
           name="postCode"
@@ -291,30 +272,12 @@ export default function UploadImage() {
         />
         <input
           type="text"
-          name="country"
-          placeholder="pays"
-          value={userData.country}
+          name="housingName"
+          placeholder="nom du logement"
+          value={userData.housingName}
           onChange={handleInputChange}
           className="w-full px-4 py-2 border rounded-lg"
         />
-        <input
-          type="text"
-          name="siteWeb"
-          placeholder="annonce web care concierge"
-          value={userData.siteWeb}
-          onChange={handleInputChange}
-          className="w-full px-4 py-2 border rounded-lg"
-        />
-
-        <input
-          type="text"
-          name="mobile"
-          placeholder="+33766797364"
-          value="+33766797364"
-          readOnly
-          className="w-full px-4 py-2 border rounded-lg"
-        />
-
         <input
           type="text"
           name="name"
@@ -332,28 +295,27 @@ export default function UploadImage() {
           className="w-full px-4 py-2 border rounded-lg"
         />
         {formError && (
-          <div className="w-full bg-red-100 text-red-800 p-2 rounded-lg text-[12px] pl-4">
+          <div className="w-full bg-red-100 text-red-800 p-2 rounded-lg">
             {formError}
           </div>
         )}
         <button
           type="submit"
-          className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700  pl-4 text-[12px]"
+          className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-75"
         >
-          sauvegarder votre annonce google
+          sauvegarder
         </button>
-        {/* <h4>selectionner 10 photos max</h4> */}
       </form>
 
       {successMessage && (
-        <div className="w-full bg-green-100 text-green-800 p-2 rounded-lg text-[12px] pl-4">
+        <div className="w-full bg-green-100 text-green-800 p-2 rounded-lg">
           {successMessage}
         </div>
       )}
 
       <div className="flex items-center justify-center w-full mt-4">
         <label
-          className=" w-full px-4 py-2 bg-pink-600 text-white rounded-lg shadow-md hover:bg-pink-700 text-center text-[12px] transition duration-300 ease-in-out"
+          className="flex flex-col items-center w-full px-2 py-2 bg-white text-blue-500 rounded-lg border border-blue-500 cursor-pointer hover:bg-blue-500 hover:text-white transition duration-300 ease-in-out"
           onClick={handleFileSelectClick}
         >
           <span className="text-[12px] leading-normal">
@@ -392,10 +354,10 @@ export default function UploadImage() {
       )}
 
       <button
-        className=" w-full px-4 py-2 bg-blue-600 text-white text-[12px] rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
+        className="px-4 py-2 bg-blue-600 text-white text-[12px] rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
         onClick={handleUpload}
       >
-        valider vos photos
+        enregistrer
       </button>
       {urls.length > 0 && (
         <div className="mt-4 w-full grid grid-cols-1 gap-4">

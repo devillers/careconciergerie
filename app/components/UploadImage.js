@@ -24,6 +24,7 @@ export default function UploadImage() {
     postCode: '',
     town: '',
     country: '',
+    mobile: '+33607797364',
   });
   const [formError, setFormError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
@@ -217,6 +218,7 @@ export default function UploadImage() {
         postCode: '',
         town: '',
         country: '',
+        mobile: '+33607797364',
       });
     } catch (err) {
       console.error('Error saving user details:', err);
@@ -316,6 +318,14 @@ export default function UploadImage() {
           name="country"
           placeholder="pays"
           value={userData.country}
+          onChange={handleInputChange}
+          className="w-full px-4 py-2 border rounded-lg"
+        />
+        <input
+          type="text"
+          name="mobile"
+          placeholder="telephone"
+          value={userData.mobile}
           onChange={handleInputChange}
           className="w-full px-4 py-2 border rounded-lg"
         />

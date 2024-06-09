@@ -1,5 +1,6 @@
 // components/UploadImage.js
 'use client';
+import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 import { ref, uploadBytes, getDownloadURL, listAll } from 'firebase/storage';
 import { collection, addDoc } from 'firebase/firestore';
@@ -14,13 +15,15 @@ export default function UploadImage() {
   const [error, setError] = useState(null);
   const fileInputRef = useRef(null);
   const [userData, setUserData] = useState({
+    name: '',
+    surname: '',
+    housingName: '',
+    web: '',
     streetName: '',
     streetNumber: '',
     postCode: '',
     town: '',
-    housingName: '',
-    name: '',
-    surname: '',
+    country: '',
   });
   const [formError, setFormError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
@@ -205,13 +208,15 @@ export default function UploadImage() {
       setSuccessMessage('données sauvegardées');
       // Clear form fields after successful submission
       setUserData({
+        name: '',
+        surname: '',
+        housingName: '',
+        web: '',
         streetName: '',
         streetNumber: '',
         postCode: '',
         town: '',
-        housingName: '',
-        name: '',
-        surname: '',
+        country: '',
       });
     } catch (err) {
       console.error('Error saving user details:', err);
@@ -221,6 +226,9 @@ export default function UploadImage() {
 
   return (
     <div className="mx-auto max-w-xl p-6 flex flex-col items-center space-y-4 bg-white shadow-md rounded-lg">
+      <div className="flex items-center cursor-pointer">
+        <Image src="/logo.png" alt="Logo" width={150} height={80} />
+      </div>
       {error && (
         <div className="w-full bg-red-100 text-red-800 p-4 rounded-lg">
           {error}
@@ -238,6 +246,39 @@ export default function UploadImage() {
         onSubmit={handleFormSubmit}
         className="w-full flex flex-col space-y-4 text-[12px]"
       >
+        <input
+          type="text"
+          name="housingName"
+          placeholder="nom du logement"
+          value={userData.housingName}
+          onChange={handleInputChange}
+          className="w-full px-4 py-2 border rounded-lg"
+        />
+        <input
+          type="text"
+          name="web"
+          placeholder="adresse annnonce web care concierge"
+          value={userData.web}
+          onChange={handleInputChange}
+          className="w-full px-4 py-2 border rounded-lg"
+        />
+        <input
+          type="text"
+          name="name"
+          placeholder="prénom"
+          value={userData.name}
+          onChange={handleInputChange}
+          className="w-full px-4 py-2 border rounded-lg"
+        />
+        <input
+          type="text"
+          name="surname"
+          placeholder="nom"
+          value={userData.surname}
+          onChange={handleInputChange}
+          className="w-full px-4 py-2 border rounded-lg"
+        />
+
         <input
           type="text"
           name="streetName"
@@ -272,30 +313,15 @@ export default function UploadImage() {
         />
         <input
           type="text"
-          name="housingName"
-          placeholder="nom du logement"
-          value={userData.housingName}
+          name="country"
+          placeholder="pays"
+          value={userData.country}
           onChange={handleInputChange}
           className="w-full px-4 py-2 border rounded-lg"
         />
-        <input
-          type="text"
-          name="name"
-          placeholder="prénom"
-          value={userData.name}
-          onChange={handleInputChange}
-          className="w-full px-4 py-2 border rounded-lg"
-        />
-        <input
-          type="text"
-          name="surname"
-          placeholder="nom"
-          value={userData.surname}
-          onChange={handleInputChange}
-          className="w-full px-4 py-2 border rounded-lg"
-        />
+
         {formError && (
-          <div className="w-full bg-red-100 text-red-800 p-2 rounded-lg">
+          <div className="w-full bg-red-100 text-red-800 p-2 rounded-lg pl-4">
             {formError}
           </div>
         )}
@@ -308,7 +334,7 @@ export default function UploadImage() {
       </form>
 
       {successMessage && (
-        <div className="w-full bg-green-100 text-green-800 p-2 rounded-lg">
+        <div className="w-full bg-green-100 text-green-800 p-2 rounded-lg pl-4 text-[12px]">
           {successMessage}
         </div>
       )}
@@ -354,13 +380,13 @@ export default function UploadImage() {
       )}
 
       <button
-        className="px-4 py-2 bg-blue-600 text-white text-[12px] rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
+        className="w-full px-2 py-2 text-[12px] bg-white text-pink-500 rounded-lg border border-pink-500 cursor-pointer hover:bg-pink-500 hover:text-white transition duration-300 ease-in-out "
         onClick={handleUpload}
       >
-        enregistrer
+        sauvegarder vos photos
       </button>
       {urls.length > 0 && (
-        <div className="mt-4 w-full grid grid-cols-1 gap-4">
+        <div className="grid-cols-2 mt-4 w-full grid md:grid-cols-4 gap-2">
           {urls.map((url, index) => (
             <img
               key={index}
